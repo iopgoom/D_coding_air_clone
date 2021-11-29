@@ -88,6 +88,7 @@ class RoomAdmin(admin.ModelAdmin):
         # "부대시설",
         "RuleNum",
         "photo_num",
+        "total_rating",
     )
 
     list_filter = (
