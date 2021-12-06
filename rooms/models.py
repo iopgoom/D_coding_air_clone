@@ -52,7 +52,7 @@ class Photo(core_models.TimeStampedModel):
     """사진 모델 정의"""
 
     caption = models.CharField(max_length=80)
-    file = models.ImageField()
+    file = models.ImageField(upload_to="room_photos")
     room = models.ForeignKey("Room", related_name="photo", on_delete=models.CASCADE)
 
     def __str__(self):
