@@ -29,4 +29,4 @@ class Command(BaseCommand):
 
         for a in amenity:
             Amenity.objects.create(name=a)
-        self.stdout.write(self.style.SUCCESS("생성완료"))
+        self.stdout.write(self.style.SUCCESS(f"{len(amenity)}완료"))
