@@ -1,3 +1,11 @@
 20211206 - 8.3 끝
 20211208 - 9.1 끝 9.2 진행하기
 20211212 - 9.4 끝 9.5 진행하기
+20211213 - 9.7 끝 9.8 진행하기 (seed 시에 정상작동되나 워닝이뜸)
+
+WARNING:root:Could not build many-to-many relationship for between rooms.Room.편의시설 and <class 'rooms.models.Amenity'>
+WARNING:root:Could not build many-to-many relationship for between rooms.Room.부대시설 and <class 'rooms.models.Facility'>
+WARNING:root:Could not build many-to-many relationship for between rooms.Room.사용규칙 and <class 'rooms.models.Houoserule'>
+
+룸뿐만아니라 매니투매니에 나타나는 곳에 나타남.. 왜인지 모름 
+
