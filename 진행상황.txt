@@ -9,3 +9,5 @@ WARNING:root:Could not build many-to-many relationship for between rooms.Room.�
 
 룸뿐만아니라 매니투매니에 나타나는 곳에 나타남.. 왜인지 모름 
 
+
+20211216 - 10.4 끝 11.0 진행하기

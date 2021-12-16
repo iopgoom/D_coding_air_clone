@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block page_name %}
+  home
+{% endblock page_name %}
+
+{% block content %}
+
+  {% for room in rooms %}
+    <h4>name : {{room}}</h4>
+    <h4>price : {{room.가격}}</h4>
+  {% endfor %}
+
+{% endblock content %}
