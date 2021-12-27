@@ -7,9 +7,67 @@
 
 {% block content %}
 
-  {% for room in rooms %}
+  <!-- {% for room in rooms.object_list %}
+  <h4>name : {{room}}</h4>
+  <h4>price : {{room.가격}}</h4>
+  {% endfor %} -->
+    
+  
+  <!-- 자력으로 만들기 -->
+  <!--   
+  <p>
+  {% if page is not 1 %}
+  <a href="?page={{page|add:-1}}">Previous</a>
+  {% endif %}
+  Page{{page}} of {{page_count}}
+  {% if not page == page_count %}
+    <a href="?page={{page|add:+1}}">Next</a>
+  {% endif %}
+  </p>
+  <p>
+  {% for page in page_range  %}
+  <a href="?page={{page}}">{{page}}</a>
+  {% endfor %}
+  </p> 
+  -->
+
+  <!-- # 장고 기능 + 만들기 get_page -->
+  <!-- 
+  {% if rooms.has_previous %}
+  <a href="?page={{rooms.number|add:-1}}">Previous</a>
+  {% endif %}
+  Page{{rooms.number}} of {{rooms.paginator.num_pages}}
+  {% if rooms.has_next %}
+    <a href="?page={{rooms.number|add:1}}">Next</a>
+  {% endif %}
+  </p>
+  <p>
+    {% for page in rooms.paginator.page_range  %}
+      {{page}}
+    {% endfor %}
+  </p> 
+  -->
+
+  
+  <!-- # 장고 기능 + 만들기 page -->
+  
+  {% for room in page.object_list %}
     <h4>name : {{room}}</h4>
     <h4>price : {{room.가격}}</h4>
   {% endfor %}
+
+  {% if page.has_previous %}
+  <a href="?page={{page.previous_page_number}}">Previous</a>
+  {% endif %}
+  Page{{page.number}} of {{page.paginator.num_pages}}
+  {% if page.has_next %}
+    <a href="?page={{page.next_page_number}}">Next</a>
+  {% endif %}
+  </p>
+  <p>
+    {% for page in page.paginator.page_range  %}
+      {{page}}
+    {% endfor %}
+  </p>
 
 {% endblock content %}
