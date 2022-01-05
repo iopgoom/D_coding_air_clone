@@ -50,7 +50,7 @@
 
   
   <!-- # 장고 기능 + 만들기 page -->
-  
+<!--   
   {% for room in page.object_list %}
     <h4>name : {{room}}</h4>
     <h4>price : {{room.가격}}</h4>
@@ -66,6 +66,29 @@
   </p>
   <p>
     {% for page in page.paginator.page_range  %}
+      {{page}}
+    {% endfor %}
+  </p> -->
+
+
+  
+  <!-- # 장고 가 해주기 -->
+  
+  {% for room in rooms %}
+    <h4>name : {{room}}</h4>
+    <h4>price : {{room.가격}}</h4>
+  {% endfor %}
+
+  {% if page_obj.has_previous %}
+  <a href="?page={{page_obj.previous_page_number}}">Previous</a>
+  {% endif %}
+  Page{{page_obj.number}} of {{page_obj.paginator.num_pages}}
+  {% if page_obj.has_next %}
+    <a href="?page={{page_obj.next_page_number}}">Next</a>
+  {% endif %}
+  </p>
+  <p>
+    {% for page in page_obj.paginator.page_range  %}
       {{page}}
     {% endfor %}
   </p>
