@@ -12,3 +12,5 @@ WARNING:root:Could not build many-to-many relationship for between rooms.Room.�
 
 20211216 - 10.4 끝 11.0 진행하기
 20211227 - 11.8 끝 12.0 진행하기
+
+20220106 - 13.2 끝 13.3 진행하기
