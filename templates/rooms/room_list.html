@@ -75,8 +75,12 @@
   <!-- # 장고 가 해주기 -->
   
   {% for room in rooms %}
-    <h4>name : {{room}}</h4>
-    <h4>price : {{room.가격}}</h4>
+    <a href="{% url 'rooms:detail' room.pk %}">
+      <h5>
+        name : {{room}} <br>
+        price : {{room.가격}}
+      </h5>
+    </a>
   {% endfor %}
 
   {% if page_obj.has_previous %}

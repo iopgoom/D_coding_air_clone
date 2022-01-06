@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.db.models.deletion import CASCADE
 from django.db.models.fields.related import ForeignKey
 from django_countries.fields import CountryField
@@ -93,6 +94,9 @@ class Room(core_models.TimeStampedModel):
     def save(self, *args, **kwargs):
         self.도시 = self.도시.title()
         super().save()
+
+    def get_absolute_url(self):
+        return reverse("rooms:detail", kwargs={"pk": self.pk})
 
     def total_rating(self):
         all_reviews = self.reviews.all()

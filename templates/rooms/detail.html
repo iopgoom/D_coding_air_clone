@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block page_name %}
+  home
+{% endblock page_name %}
+
+{% block content %}
+<h1>{{room.방이름}}</h1>
+<p>{{room.방소개}}</p>
+<p>편의시설</p>
+<ul>
+{% for a in room.편의시설.all %}
+  <li>{{a}}</li>
+{% endfor %}
+</ul>
+<p>사용규칙</p>
+<ul>
+{% for a in room.사용규칙.all %}
+  <li>{{a}}</li>
+{% endfor %}
+</ul>
+{% endblock content %}
