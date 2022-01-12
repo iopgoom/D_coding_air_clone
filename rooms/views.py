@@ -105,15 +105,81 @@ def search(request):
     city = request.GET.get("city", "Anywhere")
     city = str.capitalize(city)
     country = request.GET.get("country", "kr")
-    room_type = int(request.GET.get("room_type", "0"))
+    room_type = int(request.GET.get("room_type", 0))
+    max_price = int(request.GET.get("max_price", 0))
+    min_price = int(request.GET.get("min_price", 0))
+    guests = int(request.GET.get("guests", 0))
+    bedrooms = int(request.GET.get("bedrooms", 0))
+    bads = int(request.GET.get("bads", 0))
+    baths = int(request.GET.get("baths", 0))
+    instant = request.GET.get("instant", False)
+    super_host = request.GET.get("super_host", False)
+    s_amenities = request.GET.getlist("amenities")
+    s_facilities = request.GET.getlist("facilities")
+    s_houoserules = request.GET.getlist("houoserules")
+
+    form = {
+        "city": city,
+        "s_country": country,
+        "s_room_type": room_type,
+        "max_price": max_price,
+        "min_price": min_price,
+        "guests": guests,
+        "bedrooms": bedrooms,
+        "bads": bads,
+        "baths": baths,
+        "s_amenities": s_amenities,
+        "s_facilities": s_facilities,
+        "s_houoserules": s_houoserules,
+        "instant": instant,
+        "super_host": super_host,
+    }
+
     room_types = models.RoomType.objects.all()
+    amenities = models.Amenity.objects.all()
+    facilities = models.Facility.objects.all()
+    houoserules = models.Houoserule.objects.all()
 
-    form = {"city": city, "s_country": country, "s_room_type": room_type}
+    choices = {
+        "room_types": room_types,
+        "countries": countries,
+        "amenities": amenities,
+        "facilities": facilities,
+        "houoserules": houoserules,
+    }
 
-    choices = {"room_types": room_types, "countries": countries}
+    filter_arg = {}
+
+    if city != "Anywhere":
+        filter_arg["도시__startswith"] = city
+
+    filter_arg["국가"] = country
+
+    if room_type != 0:
+        filter_arg["방종류__pk"] = room_type
+
+    if max_price != 0:
+        filter_arg["가격__lte"] = max_price
+
+    if min_price != 0:
+        filter_arg["가격__gte"] = min_price
+
+    if guests != 0:
+        filter_arg["투숙객__gte"] = guests
+
+    if bedrooms != 0:
+        filter_arg["침대__gte"] = bedrooms
+
+    if bads != 0:
+        filter_arg["화장실__gte"] = bads
+
+    if baths != 0:
+        filter_arg["욕조__gte"] = baths
+
+    rooms = models.Room.objects.filter(**filter_arg)
 
     return render(
         request,
         "rooms/search.html",
-        {**form, **choices},
+        {**form, **choices, "rooms": rooms},
     )

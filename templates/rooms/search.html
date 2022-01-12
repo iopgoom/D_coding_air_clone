@@ -28,12 +28,84 @@ Search
       {% endfor %}
     </select>
   </div>
+  <div>
+    <label for="max_price"> max_Price </label>
+    <input value="{{max_price}}" type="number" id="max_price" name="max_price" placeholder="max_Price">
+  </div>
+  <div>
+    <label for="min_price"> min_Price </label>
+    <input value="{{min_price}}" type="number" id="min_price" name="min_price" placeholder="min_Price">
+  </div>
+  <div>
+    <label for="guests"> Guests </label>
+    <input value="{{guests}}" type="number" id="guests" name="guests" placeholder="Guests">
+  </div>
+  <div>
+    <label for="bedrooms"> Bedrooms </label>
+    <input value="{{bedrooms}}" type="number" id="bedrooms" name="bedrooms" placeholder="Bedrooms">
+  </div>
+  <div>
+    <label for="bads"> Bads </label>
+    <input value="{{bads}}" type="number" id="bads" name="bads" placeholder="Bads">
+  </div>
+  <div>
+    <label for="baths"> Baths </label>
+    <input value="{{baths}}" type="number" id="baths" name="baths" placeholder="Baths">
+  </div>
+  <div>
+    <label for="instant"> Instant Book Only ?</label>
+    <input  type="checkbox" id="instant" name="instant" {% if instant %} checked {% endif %} >
+  </div>
+  <div>
+    <label for="super_host"> By SuperHost Only ?</label>
+    <input  type="checkbox" id="super_host" name="super_host" {% if super_host %} checked {% endif %} >
+  </div>
+  <div>
+    <h3> Amenities </h3>
+    <ul>
+    {% for amenity in amenities  %}
+      <li>
+        <label for="a_{{amenity.pk}}">{{amenity.name}}</label>
+        <input id="a_{{amenity.pk}}" name="amenities" type="checkbox" value="{{amenity.pk}}" {% if amenity.pk|slugify in s_amenities %} checked {% endif %}>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h3> Facilities </h3>
+    <ul>
+    {% for facility in facilities  %}
+      <li>
+        <label for="f_{{facility.pk}}">{{facility.name}}</label>
+        <input id="f_{{facility.pk}}" name="facilities" type="checkbox" value="{{facility.pk}}" {% if facility.pk|slugify in s_facilities %} checked {% endif %}>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h3> Houoserule </h3>
+    <ul>
+    {% for houoserule in houoserules  %}
+      <li>
+        <label for="h_{{houoserule.pk}}">{{houoserule.name}}</label>
+        <input id="h_{{houoserule.pk}}" name="houoserules" type="checkbox" value="{{houoserule.pk}}" {% if houoserule.pk|slugify in s_houoserules %} checked {% endif %}>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+
   <button>search</button>
 </form>
 {% endblock search_bar %}
 
 {% block content %}
 
-<h2>search result of : {{city}}</h2>
+<h2> result </h2>
+
+
+{% for room in rooms %}
+  <h3>{{room.방이름}}</h3>
+{% endfor %}
+  
 
 {% endblock content %}
