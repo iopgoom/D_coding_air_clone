@@ -112,8 +112,8 @@ def search(request):
     bedrooms = int(request.GET.get("bedrooms", 0))
     bads = int(request.GET.get("bads", 0))
     baths = int(request.GET.get("baths", 0))
-    instant = request.GET.get("instant", False)
-    super_host = request.GET.get("super_host", False)
+    instant = bool(request.GET.get("instant", False))
+    superhost = bool(request.GET.get("superhost", False))
     s_amenities = request.GET.getlist("amenities")
     s_facilities = request.GET.getlist("facilities")
     s_houoserules = request.GET.getlist("houoserules")
@@ -132,7 +132,7 @@ def search(request):
         "s_facilities": s_facilities,
         "s_houoserules": s_houoserules,
         "instant": instant,
-        "super_host": super_host,
+        "superhost": superhost,
     }
 
     room_types = models.RoomType.objects.all()
@@ -175,6 +175,24 @@ def search(request):
 
     if baths != 0:
         filter_arg["욕조__gte"] = baths
+
+    if instant is True:
+        filter_arg["예약"] = True
+
+    if superhost is True:
+        filter_arg["주인장__주인장"] = True
+
+    if len(s_amenities) > 0:
+        for s_amenity in s_amenities:
+            filter_arg["편의시설__pk"] = int(s_amenity)
+
+    if len(s_facilities) > 0:
+        for s_facility in s_facilities:
+            filter_arg["부대시설__pk"] = int(s_facility)
+
+    if len(houoserules) > 0:
+        for houoserule in houoserules:
+            filter_arg["사용규칙__pk"] = int(houoserule)
 
     rooms = models.Room.objects.filter(**filter_arg)
 
