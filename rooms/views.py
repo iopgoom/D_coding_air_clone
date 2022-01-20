@@ -63,12 +63,8 @@
 
 
 # 장고가 다해주기
-from django.views.generic import ListView
-from django.http import Http404
 from django.shortcuts import redirect, render
-from django.urls import reverse
-from django_countries import countries
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 from . import models, forms
 
 
@@ -101,12 +97,79 @@ class RoomDetail(DetailView):
 
 
 # function_base
-def search(request):
+class SearchView(View):
+    def get(get, request):
 
-    form = forms.SearchForm()
+        country = request.GET.get("country")
 
-    return render(
-        request,
-        "rooms/search.html",
-        {"form": form},
-    )
+        if country:
+            form = forms.SearchForm(request.GET)
+            if form.is_valid():
+                city = form.cleaned_data.get("city")
+                price = form.cleaned_data.get("price")
+                room_type = form.cleaned_data.get("room_type")
+                country = form.cleaned_data.get("country")
+                guests = form.cleaned_data.get("guests")
+                beds = form.cleaned_data.get("beds")
+                bathrooms = form.cleaned_data.get("bathrooms")
+                bath = form.cleaned_data.get("bath")
+                instant_book = form.cleaned_data.get("instant_book")
+                supehost = form.cleaned_data.get("supehost")
+                amenities = form.cleaned_data.get("amenities")
+                facilities = form.cleaned_data.get("facilities")
+                houoserules = form.cleaned_data.get("houoserules")
+
+                filter_args = {}
+
+                if city != "Anywhere":
+                    filter_args["도시__startswith"] = city
+
+                filter_args["국가"] = country
+
+                if room_type is not None:
+                    filter_args["방종류"] = room_type
+
+                if price is not None:
+                    filter_args["가격__lte"] = price
+
+                if guests is not None:
+                    filter_args["투숙객__gte"] = guests
+
+                if bathrooms is not None:
+                    filter_args["화장실__gte"] = bathrooms
+
+                if beds is not None:
+                    filter_args["침대__gte"] = beds
+
+                if bath is not None:
+                    filter_args["욕조__gte"] = bath
+
+                if instant_book is True:
+                    filter_args["예약"] = True
+
+                if supehost is True:
+                    filter_args["주인장__주인장"] = True
+
+                for amenity in amenities:
+                    filter_args["편의시설"] = amenity
+
+                for facility in facilities:
+                    filter_args["부대시설"] = facility
+
+                for houoserule in houoserules:
+                    filter_args["사용규칙"] = houoserule
+
+                rooms = models.Room.objects.filter(**filter_args)
+            return render(
+                request,
+                "rooms/search.html",
+                {"form": form, "rooms": rooms},
+            )
+        else:
+            form = forms.SearchForm()
+
+        return render(
+            request,
+            "rooms/search.html",
+            {"form": form},
+        )
