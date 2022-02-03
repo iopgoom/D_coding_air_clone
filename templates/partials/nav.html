@@ -1,5 +1,12 @@
     <a href="{% url 'core:home' %}">pbnb</a>
     <ul>
+        {% if user.is_authenticated %}
+        <li>username</li>
+        <li><a href="{% url 'users:log_out' %}">Logout</a></li>
+        {% else %}
         <li><a href="{% url 'users:login' %}">Login</a></li>
+        {% endif %}
+        
+        
     </ul>
     
