@@ -41,6 +41,10 @@ class User(AbstractUser):
     )
     feelGood = models.TextField(default="", blank=True)
     생일 = models.DateField(blank=True, null=True)
-    언어 = models.CharField(choices=LANG_CHOICES, max_length=2, blank=True)
-    통화 = models.CharField(choices=CURRENCY_CHOICES, max_length=3, blank=True)
+    언어 = models.CharField(
+        choices=LANG_CHOICES, max_length=2, blank=True, default=LANG_KR
+    )
+    통화 = models.CharField(
+        choices=CURRENCY_CHOICES, max_length=3, blank=True, default=CURRENCY_KR
+    )
     주인장 = models.BooleanField(default=False)
