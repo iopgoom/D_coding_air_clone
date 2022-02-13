@@ -29,3 +29,8 @@ WARNING:root:Could not build many-to-many relationship for between rooms.Room.�
 20220207 - 15.3 끝 16.0 진행하기
 
 20220208 - 16.2 끝 16.3 진행하기
+
+20220213 - 16.3 끝 16.4 진행하기
+gmail 사용해서 하려면 보안수준을 낮춰야하고
+imap 사용설정을 해야함 (1시간 헤멤.. ㅅㅂ)
+.env 파일은 변경하면 런서버를 다시해야함
