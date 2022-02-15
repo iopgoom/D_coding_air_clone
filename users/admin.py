@@ -21,6 +21,7 @@ class CustomUserAdmin(UserAdmin):
                     "언어",
                     "통화",
                     "주인장",
+                    "login_method",
                 ),
             },
         ),
@@ -30,9 +31,13 @@ class CustomUserAdmin(UserAdmin):
 
     list_display = (
         "username",
-        "feelGood",
+        "email",
         "생일",
         "언어",
         "통화",
         "주인장",
+        "is_active",
+        "email_verified",
+        "email_secret",
+        "login_method",
     )
